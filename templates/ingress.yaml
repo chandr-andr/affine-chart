@@ -1,5 +1,5 @@
 {{- if .Values.ingress.enabled -}}
-{{- $fullName := include "affine-chart.fullname" . -}}
+{{- $fullName := include "affine.fullname" . -}}
 {{- $svcPort := .Values.service.port -}}
 {{- if and .Values.ingress.className (not (semverCompare ">=1.18-0" .Capabilities.KubeVersion.GitVersion)) }}
   {{- if not (hasKey .Values.ingress.annotations "kubernetes.io/ingress.class") }}
@@ -17,7 +17,7 @@ kind: Ingress
 metadata:
   name: {{ $fullName }}-ingress
   labels:
-    {{- include "affine-chart.labels" . | nindent 4 }}
+    {{- include "affine.labels" . | nindent 4 }}
   {{- with .Values.ingress.annotations }}
   annotations:
     {{- toYaml . | nindent 4 }}
@@ -53,7 +53,7 @@ spec:
                 port:
                   number: {{ .servicePort }}
               {{- else }}
-              serviceName: {{ include "affine-chart.fullname" . }}-service
+              serviceName: {{ include "affine.fullname" . }}-service
               servicePort: {{ .servicePort }}
               {{- end }}
           {{- end }}

@@ -3,8 +3,8 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    name: {{ include "affine-chart.fullname" . }}-service
-  name: {{ include "affine-chart.fullname" . }}-service
+    name: {{ include "affine.fullname" . }}-service
+  name: {{ include "affine.fullname" . }}-service
 spec:
   ports:
     {{- range $servicePort := .Values.service.ports }}
@@ -13,4 +13,4 @@ spec:
       name: {{ $servicePort.name | quote }}
     {{- end }}
   selector:
-    name: {{ include "affine-chart.fullname" . }}
+    name: {{ include "affine.fullname" . }}

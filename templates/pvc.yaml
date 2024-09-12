@@ -2,7 +2,7 @@
 kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
-  name: {{ include "affine-chart.fullname" . }}-pvc
+  name: {{ include "affine.fullname" . }}-pvc
 spec:
   storageClassName: {{ .Values.persistence.storageClass }}
   accessModes:
