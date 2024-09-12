@@ -1,0 +1,15 @@
+{{- if .Values.persistence.enabled -}}
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: {{ include "affine-chart.fullname" . }}-pvc
+spec:
+  storageClassName: {{ .Values.persistence.storageClass }}
+  accessModes:
+    {{- range $accessMode := .Values.persistence.accessModes }}
+    - {{ $accessMode }}
+    {{- end }}
+  resources:
+    requests:
+      storage: {{ .Values.persistence.size }}
+{{- end }}
