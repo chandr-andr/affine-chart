@@ -2,7 +2,12 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
-replicaCount: 1
+# -- Install redis as a depending chart
+redisDependencyEnabled: false
+# -- Install mariadb as a depending chart
+postgresqlDependencyEnabled: true
+
+replicaCount: 2
 
 image:
   repository: ghcr.io/toeverything/affine-graphql
@@ -55,11 +60,11 @@ resources: {}
   # resources, such as Minikube. If you do want to specify resources, uncomment the following
   # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
   # limits:
-  #   cpu: 100m
-  #   memory: 128Mi
+  #   cpu: 500m
+  #   memory: 1Gi
   # requests:
-  #   cpu: 100m
-  #   memory: 128Mi
+  #   cpu: 200m
+  #   memory: 512Mi
 
 ports:
   - containerPort: 3010
@@ -115,3 +120,21 @@ ingress:
   #  - secretName: chart-example-tls
   #    hosts:
   #      - chart-example.local
+
+# Configure redis dependency chart
+redis:
+  auth:
+    # -- Enable redis authentication
+    enabled: true
+    # -- Configure redis password
+    password: "CHANGEME"
+
+# Configure postgresql as a dependency chart
+postgresql:
+ auth:
+   # -- Configure postgresql auth username
+   username: CHANGEME
+   # -- Configure postgresql auth password
+   password: CHANGEME
+   # -- Configure postgresql auth database
+   database: affine
